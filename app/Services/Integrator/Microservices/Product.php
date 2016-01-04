@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 class Product extends Client
 {
 
-    protected $url;
-
     const QS_FEATURED = '/featureds';
     const QS_DETAIL = '/%s/details-page';
 
@@ -18,8 +16,7 @@ class Product extends Client
      */
     public function __construct()
     {
-        $this->url = env('MICROSERVICE_CATALOG_URL') . 'products';
-        parent::__construct($this->url);
+        parent::__construct(env('MICROSERVICE_CATALOG_URL') . 'products');
     }
 
     /**

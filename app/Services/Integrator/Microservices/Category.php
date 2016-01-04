@@ -8,18 +8,14 @@ use Illuminate\Http\Request;
 class Category extends Client
 {
 
-    protected $url;
-
-    const QS_FEATURED = '/featureds';
-    const QS_DETAIL = '/%s/details-page';
+    const QS_TREE = '/tree';
 
     /**
      * Product constructor.
      */
     public function __construct()
     {
-        $this->url = env('MICROSERVICE_CATALOG_URL') . 'categories';
-        parent::__construct($this->url);
+        parent::__construct(env('MICROSERVICE_CATALOG_URL') . 'categories');
     }
 
     /**
@@ -31,5 +27,14 @@ class Category extends Client
     {
         $options = $this->parseQueryString($request);
         return $this->sendRequest('', $options);
+    }
+
+    /**
+     * @return bool|mixed
+     * @throws \Exception
+     */
+    public function getTree()
+    {
+        return $this->sendRequest(self::QS_TREE);
     }
 }

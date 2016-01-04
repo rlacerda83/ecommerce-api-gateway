@@ -18,8 +18,6 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->get('web/products/', 'ProductsController@index');
     $api->get('web/products/{id}/details-page', 'ProductController@getDetailsPage');
 
-    //$api->get('test/', 'TestController@index');
-
 });
 
 $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers\V1\Common'], function ($api) {
@@ -28,9 +26,7 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
 
     //categories
     $api->get('common/categories', 'CategoryController@index');
+    $api->get('common/categories/tree', 'CategoryController@getTree');
 
 });
 
-//$api->version('v2',  function ($api) {
-//    $api->get('emails/', 'App\Http\Controllers\V2\EmailController@index');
-//});

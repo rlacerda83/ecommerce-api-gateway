@@ -32,9 +32,23 @@ class CategoryController extends BaseController
     public function index(Request $request)
     {
         try {
-            $products = $this->integrator->getAll($request);
+            $categories = $this->integrator->getAll($request);
 
-            return Response()->json($products);
+            return Response()->json($categories);
+        } catch (\Exception $e) {
+            throw new StoreResourceFailedException($e->getMessage());
+        }
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getTree()
+    {
+        try {
+            $categories = $this->integrator->getTree();
+
+            return Response()->json($categories);
         } catch (\Exception $e) {
             throw new StoreResourceFailedException($e->getMessage());
         }

@@ -5,7 +5,7 @@ namespace App\Services\Integrator\Microservices;
 use App\Services\Integrator\Client;
 use Illuminate\Http\Request;
 
-class Product extends Client
+class Recommendation extends Client
 {
 
     const QS_FEATURED = '/featureds';
@@ -16,7 +16,7 @@ class Product extends Client
      */
     public function __construct()
     {
-        parent::__construct(env('MICROSERVICE_CATALOG_URL') . 'products');
+        parent::__construct(env('MICROSERVICE_RECOMMENDATION_URL') . 'recommendations');
     }
 
     /**
@@ -24,18 +24,7 @@ class Product extends Client
      * @return bool|mixed
      * @throws \Exception
      */
-    public function getAllProducts(Request $request)
-    {
-        $options = $this->parseQueryString($request);
-        return $this->sendRequest(null, $options);
-    }
-
-    /**
-     * @param Request $request
-     * @return bool|mixed
-     * @throws \Exception
-     */
-    public function getFeatureds(Request $request)
+    public function getWhoViewAlsoView(Request $request)
     {
         $options = $this->parseQueryString($request);
         return $this->sendRequest(self::QS_FEATURED, $options);

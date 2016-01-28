@@ -2,56 +2,54 @@
 
 namespace App\Http\Controllers\V1\Common;
 
-use App\Services\Integrator\Microservices\Product;
-use App\Transformers\DefaultTransformer;
+use App\Services\Integrator\Microservices\Category;
+use App\Services\Integrator\Microservices\Recommendation;
 use Illuminate\Http\Request;
 use Dingo\Api\Routing\Helpers;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
-class ProductController extends BaseController
+class RecommendationController extends BaseController
 {
     use Helpers;
 
     /**
-     * @var Product
+     * @var Category
      */
     private $integrator;
 
     /**
      * ProductController constructor.
-     * @param Product $product
+     * @param Recommendation $recommendation
      */
-    public function __construct(Product $product)
+    public function __construct(Recommendation $recommendation)
     {
-        $this->integrator = $product;
+        $this->integrator = $recommendation;
     }
 
     /**
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAllProducts(Request $request)
+    public function getWhoViewAlsoView(Request $request)
     {
         try {
-            $products = $this->integrator->getAllProducts($request);
+            $recommendations = $this->integrator->getWhoViewAlsoView($request);
 
-            return Response()->json($products);
+            return Response()->json($recommendations);
         } catch (\Exception $e) {
             throw new StoreResourceFailedException($e->getMessage());
         }
     }
 
     /**
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFeaturedProducts(Request $request)
+    public function getWhoBougthAlsoBougth(Request $request)
     {
         try {
-            $products = $this->integrator->getFeatureds($request);
+            $recommendations = $this->integrator->getWhoViewAlsoView($request);
 
-            return Response()->json($products);
+            return Response()->json($recommendations);
         } catch (\Exception $e) {
             throw new StoreResourceFailedException($e->getMessage());
         }
